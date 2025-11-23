@@ -20,15 +20,32 @@ export default function FactoryTourPage() {
   const [showInstructions, setShowInstructions] = useState(false);
   const [currentStation, setCurrentStation] = useState<Station | null>(null);
 
+  const handleNextStation = () => {
+    if (gameState.isActive) {
+      setCurrentStation(null);
+      moveToNextStation();
+
+      // בדיקה אם הסיור הסתיים
+      if (!gameState.isActive) {
+        setShowInstructions(false);
+      }
+    }
+  };
+
   useEffect(() => {
     if (!canvasRef.current) return;
 
-    // יצירת מנוע Babylon.js
+    // יצירת מנוע Babylon.js - optimized for mobile
     const engine = new BABYLON.Engine(canvasRef.current, true, {
-      preserveDrawingBuffer: true,
-      stencil: true,
-      antialias: true
+      preserveDrawingBuffer: false,
+      stencil: false,
+      antialias: window.devicePixelRatio <= 2,
+      powerPreference: 'high-performance',
+      doNotHandleContextLost: true
     });
+
+    // הגבלת FPS למובייל
+    engine.setHardwareScalingLevel(1 / Math.min(window.devicePixelRatio, 2));
 
     // אתחול המשחק
     const { scene, player } = initGame(engine, canvasRef.current, (station) => {
@@ -60,16 +77,10 @@ export default function FactoryTourPage() {
     };
     window.addEventListener('resize', handleResize);
 
-    // מקש ENTER למעבר לתחנה הבאה
+    // מקש ENTER או לחיצה למעבר לתחנה הבאה
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Enter' && gameState.isActive) {
-        setCurrentStation(null);
-        moveToNextStation();
-
-        // בדיקה אם הסיור הסתיים
-        if (!gameState.isActive) {
-          setShowInstructions(false);
-        }
+        handleNextStation();
       }
     };
     window.addEventListener('keydown', handleKeyDown);
@@ -112,7 +123,7 @@ export default function FactoryTourPage() {
             <div className="text-xl text-gray-600 mb-12 font-light leading-relaxed">
               התנסות וירטואלית במפעל ייצור מתקדם
               <br />
-              עצור בכל תחנה והמשך בלחיצת ENTER
+              עצור בכל תחנה ולחץ על הכפתור להמשיך
             </div>
             <button
               onClick={handleStartClick}
@@ -136,11 +147,24 @@ export default function FactoryTourPage() {
         </div>
       )}
 
-      {/* הוראות */}
-      {showInstructions && (
-        <div className="fixed bottom-8 left-1/2 -translate-x-1/2 z-40 bg-white/95 px-12 py-6 rounded-full shadow-xl backdrop-blur text-xl font-medium text-gray-800 animate-pulse">
-          ⌨️ לחץ ENTER למעבר לתחנה הבאה
-        </div>
+      {/* כפתור למעבר לתחנה הבאה - נגיש תמיד */}
+      {showInstructions && !currentStation && (
+        <button
+          onClick={handleNextStation}
+          className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 px-8 py-4 bg-gradient-to-r from-[#667eea] to-[#764ba2] text-white rounded-full text-lg font-semibold shadow-2xl hover:scale-105 transition-all animate-bounce"
+        >
+          ▶️ המשך לתחנה הבאה
+        </button>
+      )}
+
+      {/* הוראות - מובטח שלא יוסתרו */}
+      {showInstructions && currentStation && (
+        <button
+          onClick={handleNextStation}
+          className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 px-8 py-4 bg-gradient-to-r from-emerald-500 to-teal-500 text-white rounded-full text-lg font-semibold shadow-2xl hover:scale-105 transition-all"
+        >
+          ✓ הבנתי - הבא
+        </button>
       )}
 
       {/* Canvas למשחק */}

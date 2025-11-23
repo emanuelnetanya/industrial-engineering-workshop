@@ -20,15 +20,15 @@ export default function Scene3DBackground({ theme = 'blue', intensity = 1 }: Sce
     const scene = new THREE.Scene();
     scene.background = new THREE.Color(0xf8fafc);
 
-    const aspectRatio = 9 / 19.5;
-    const width = Math.min(window.innerWidth, 500);
-    const height = width / aspectRatio;
+    const width = window.innerWidth;
+    const height = window.innerHeight;
+    const aspectRatio = width / height;
 
     const camera = new THREE.PerspectiveCamera(60, aspectRatio, 0.1, 1000);
-    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+    const renderer = new THREE.WebGLRenderer({ antialias: false, alpha: true, powerPreference: 'high-performance' });
 
     renderer.setSize(width, height);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
 
     if (mountRef.current) {
       mountRef.current.innerHTML = '';
@@ -60,9 +60,9 @@ export default function Scene3DBackground({ theme = 'blue', intensity = 1 }: Sce
     pointLight.position.set(8, 8, 8);
     scene.add(pointLight);
 
-    // חלקיקים
+    // חלקיקים - optimized for mobile
     const particlesGeometry = new THREE.BufferGeometry();
-    const particlesCount = 1500;
+    const particlesCount = 600;
     const posArray = new Float32Array(particlesCount * 3);
 
     for (let i = 0; i < particlesCount * 3; i++) {
@@ -113,9 +113,9 @@ export default function Scene3DBackground({ theme = 'blue', intensity = 1 }: Sce
     animate();
 
     const handleResize = () => {
-      const newWidth = Math.min(window.innerWidth, 500);
-      const newHeight = newWidth / aspectRatio;
-      camera.aspect = aspectRatio;
+      const newWidth = window.innerWidth;
+      const newHeight = window.innerHeight;
+      camera.aspect = newWidth / newHeight;
       camera.updateProjectionMatrix();
       renderer.setSize(newWidth, newHeight);
     };

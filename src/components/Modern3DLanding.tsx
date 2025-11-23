@@ -95,17 +95,20 @@ const Modern3DLanding = () => {
     const scene = new THREE.Scene();
     scene.background = new THREE.Color(0xf8fafc);
 
-    const aspectRatio = 9 / 19.5;
-    const width = Math.min(window.innerWidth, 500);
-    const height = width / aspectRatio;
+    const width = window.innerWidth;
+    const height = window.innerHeight;
+    const aspectRatio = width / height;
 
     const camera = new THREE.PerspectiveCamera(60, aspectRatio, 0.1, 1000);
-    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+    const renderer = new THREE.WebGLRenderer({
+      antialias: window.devicePixelRatio <= 2,
+      alpha: true,
+      powerPreference: 'high-performance'
+    });
 
     renderer.setSize(width, height);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-    renderer.shadowMap.enabled = true;
-    renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
+    renderer.shadowMap.enabled = false; // Disabled for mobile performance
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
     renderer.toneMappingExposure = 1.2;
 
@@ -119,7 +122,6 @@ const Modern3DLanding = () => {
 
     const directionalLight1 = new THREE.DirectionalLight(0x60a5fa, 1.5);
     directionalLight1.position.set(5, 10, 5);
-    directionalLight1.castShadow = true;
     scene.add(directionalLight1);
 
     const directionalLight2 = new THREE.DirectionalLight(0x38bdf8, 1);
@@ -157,7 +159,6 @@ const Modern3DLanding = () => {
     const icosaGeo = new THREE.IcosahedronGeometry(2.5, 0);
     const icosa = new THREE.Mesh(icosaGeo, createMetallicMaterial(0x0ea5e9, 0x0284c7));
     icosa.position.set(0, 3, -8);
-    icosa.castShadow = true;
     scene.add(icosa);
 
     const icosaWire = new THREE.LineSegments(
@@ -170,7 +171,6 @@ const Modern3DLanding = () => {
     const torusKnotGeo = new THREE.TorusKnotGeometry(1.5, 0.4, 100, 16);
     const torusKnot = new THREE.Mesh(torusKnotGeo, createMetallicMaterial(0x3b82f6, 0x1e40af));
     torusKnot.position.set(-4, -1, -10);
-    torusKnot.castShadow = true;
     scene.add(torusKnot);
 
     const torusWire = new THREE.LineSegments(
@@ -183,7 +183,6 @@ const Modern3DLanding = () => {
     const octaGeo = new THREE.OctahedronGeometry(2, 0);
     const octa = new THREE.Mesh(octaGeo, createMetallicMaterial(0x06b6d4, 0x0891b2));
     octa.position.set(4, 2, -12);
-    octa.castShadow = true;
     scene.add(octa);
 
     const octaWire = new THREE.LineSegments(
@@ -196,7 +195,6 @@ const Modern3DLanding = () => {
     const dodecaGeo = new THREE.DodecahedronGeometry(1.8, 0);
     const dodeca = new THREE.Mesh(dodecaGeo, createMetallicMaterial(0x0284c7, 0x075985));
     dodeca.position.set(3, -3, -9);
-    dodeca.castShadow = true;
     scene.add(dodeca);
 
     const dodecaWire = new THREE.LineSegments(
@@ -209,7 +207,6 @@ const Modern3DLanding = () => {
     const tetraGeo = new THREE.TetrahedronGeometry(2.2, 0);
     const tetra = new THREE.Mesh(tetraGeo, createMetallicMaterial(0x38bdf8, 0x0369a1));
     tetra.position.set(-3, 1, -11);
-    tetra.castShadow = true;
     scene.add(tetra);
 
     const tetraWire = new THREE.LineSegments(
@@ -220,7 +217,7 @@ const Modern3DLanding = () => {
     geometries.push({ mesh: tetra, speedX: 0.007, speedY: 0.003 });
 
     const particlesGeometry = new THREE.BufferGeometry();
-    const particlesCount = 2000;
+    const particlesCount = 800; // Optimized for mobile
     const posArray = new Float32Array(particlesCount * 3);
 
     for (let i = 0; i < particlesCount * 3; i++) {
@@ -281,9 +278,9 @@ const Modern3DLanding = () => {
     setTimeout(() => setIsLoaded(true), 100);
 
     const handleResize = () => {
-      const newWidth = Math.min(window.innerWidth, 500);
-      const newHeight = newWidth / aspectRatio;
-      camera.aspect = aspectRatio;
+      const newWidth = window.innerWidth;
+      const newHeight = window.innerHeight;
+      camera.aspect = newWidth / newHeight;
       camera.updateProjectionMatrix();
       renderer.setSize(newWidth, newHeight);
     };

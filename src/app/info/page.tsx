@@ -3,7 +3,6 @@
 import React, { useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { gsap } from 'gsap';
-import Phone3DFrame from '@/components/3d/Phone3DFrame';
 import Scene3DBackground from '@/components/3d/Scene3DBackground';
 
 export default function InfoPage() {
@@ -65,10 +64,10 @@ export default function InfoPage() {
   ];
 
   return (
-    <Phone3DFrame>
-      <Scene3DBackground theme="purple" intensity={0.8} />
+    <div className="relative w-full min-h-screen overflow-x-hidden bg-gradient-to-br from-purple-50 to-pink-50">
+      <Scene3DBackground theme="purple" intensity={0.6} />
 
-      <div className="relative z-20 h-full flex flex-col p-6 pt-12 overflow-y-auto">
+      <div className="relative z-20 min-h-screen flex flex-col p-4 sm:p-6 pt-12 overflow-y-auto max-w-4xl mx-auto">
         {/* כפתור חזרה */}
         <button
           onClick={() => router.push('/')}
@@ -116,7 +115,7 @@ export default function InfoPage() {
         </div>
 
         {/* CTA Button */}
-        <div className="fixed bottom-8 left-1/2 transform -translate-x-1/2 z-30">
+        <div className="sticky bottom-8 left-1/2 transform -translate-x-1/2 z-30 mt-8">
           <button
             onClick={() => router.push('/factory-tour')}
             className="px-8 py-4 bg-gradient-to-r from-purple-600 to-pink-500 text-white rounded-full font-semibold shadow-xl hover:scale-105 transition-transform"
@@ -125,6 +124,6 @@ export default function InfoPage() {
           </button>
         </div>
       </div>
-    </Phone3DFrame>
+    </div>
   );
 }
