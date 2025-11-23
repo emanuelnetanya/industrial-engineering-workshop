@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
+import { useRouter } from 'next/navigation';
 import * as BABYLON from '@babylonjs/core';
 import '@babylonjs/loaders';
 import { initGame } from '@/lib/factory-tour/game/initGame';
@@ -13,6 +14,7 @@ import type { Station } from '@/lib/factory-tour/types';
  * דף סיור במפעל תעשייתי
  */
 export default function FactoryTourPage() {
+  const router = useRouter();
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [showStartScreen, setShowStartScreen] = useState(true);
   const [showInstructions, setShowInstructions] = useState(false);
@@ -90,6 +92,16 @@ export default function FactoryTourPage() {
 
   return (
     <div className="relative w-full h-screen overflow-hidden bg-gray-100">
+      {/* כפתור חזרה */}
+      {!showStartScreen && (
+        <button
+          onClick={() => router.push('/')}
+          className="fixed top-4 right-4 z-50 w-12 h-12 rounded-full bg-white/90 backdrop-blur-md flex items-center justify-center hover:bg-white transition-all shadow-lg hover:scale-110"
+        >
+          <span className="text-2xl">←</span>
+        </button>
+      )}
+
       {/* מסך התחלה */}
       {showStartScreen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-gradient-to-br from-[#667eea] to-[#764ba2] transition-opacity duration-600">
