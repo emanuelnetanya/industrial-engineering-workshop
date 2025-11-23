@@ -14,83 +14,84 @@ export const gameState: GameState = {
 };
 
 /**
- * תחנות הסיור עם מידע
+ * תחנות הסיור עם מידע - מותאם למובייל עם מרחקים קצרים יותר
  */
+const SCALE = 0.4; // קנה מידה למובייל
 export const stations: Station[] = [
   {
-    position: new BABYLON.Vector3(0, 0, -50),
+    position: new BABYLON.Vector3(0, 0, -50 * SCALE),
     name: 'נקודת התחלה',
     description: 'מחוץ למפעל',
     hasInfo: false
   },
   {
-    position: new BABYLON.Vector3(0, 0, -35),
+    position: new BABYLON.Vector3(0, 0, -35 * SCALE),
     name: 'כניסה למפעל',
     description: 'שער הכניסה הראשי',
     hasInfo: false
   },
   {
-    position: new BABYLON.Vector3(0, 0, -25),
+    position: new BABYLON.Vector3(0, 0, -25 * SCALE),
     name: 'לובי קבלה',
     description: 'מרחב קבלת הפנים',
     hasInfo: false
   },
   {
-    position: new BABYLON.Vector3(-25, 0, -15),
+    position: new BABYLON.Vector3(-25 * SCALE, 0, -15 * SCALE),
     name: 'תחנה 1 - מכונת CNC',
     description: 'מכונת כרסום ממוחשבת לעיבוד מתכת',
     hasInfo: true
   },
   {
-    position: new BABYLON.Vector3(-25, 0, 5),
+    position: new BABYLON.Vector3(-25 * SCALE, 0, 5 * SCALE),
     name: 'תחנה 2 - קו ייצור',
     description: 'מסוע אוטומטי להעברת מוצרים',
     hasInfo: true
   },
   {
-    position: new BABYLON.Vector3(-25, 5, 25),
+    position: new BABYLON.Vector3(-25 * SCALE, 5 * SCALE, 25 * SCALE),
     name: 'תחנה 3 - רובוט ריתוך',
     description: 'זרוע רובוטית לריתוך מדויק',
     hasInfo: true
   },
   {
-    position: new BABYLON.Vector3(0, 5, 30),
+    position: new BABYLON.Vector3(0, 5 * SCALE, 30 * SCALE),
     name: 'גשר עליון',
     description: 'מעבר עליון למפקחים',
     hasInfo: false
   },
   {
-    position: new BABYLON.Vector3(25, 5, 25),
+    position: new BABYLON.Vector3(25 * SCALE, 5 * SCALE, 25 * SCALE),
     name: 'תחנה 4 - אריזה',
     description: 'מכונה אוטומטית לאריזת מוצרים',
     hasInfo: true
   },
   {
-    position: new BABYLON.Vector3(25, 0, 5),
+    position: new BABYLON.Vector3(25 * SCALE, 0, 5 * SCALE),
     name: 'תחנה 5 - בקרת איכות',
     description: 'בדיקת איכות ומיון מוצרים',
     hasInfo: true
   },
   {
-    position: new BABYLON.Vector3(25, 0, -15),
+    position: new BABYLON.Vector3(25 * SCALE, 0, -15 * SCALE),
     name: 'תחנה 6 - מחסן',
     description: 'אחסון חומרי גלם ומוצרים',
     hasInfo: true
   },
   {
-    position: new BABYLON.Vector3(0, 0, -25),
+    position: new BABYLON.Vector3(0, 0, -25 * SCALE),
     name: 'יציאה',
     description: 'סיום הסיור',
     hasInfo: false
   },
   {
-    position: new BABYLON.Vector3(0, 0, -35),
+    position: new BABYLON.Vector3(0, 0, -35 * SCALE),
     name: 'שער יציאה',
     description: 'יציאה מהמפעל',
     hasInfo: false
   },
   {
-    position: new BABYLON.Vector3(0, 0, -50),
+    position: new BABYLON.Vector3(0, 0, -50 * SCALE),
     name: 'סיום',
     description: 'תודה על הסיור!',
     hasInfo: false

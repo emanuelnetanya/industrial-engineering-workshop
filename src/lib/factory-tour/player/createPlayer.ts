@@ -10,6 +10,7 @@ export function createPlayer(
 ): PlayerParts {
   const playerRoot = new BABYLON.TransformNode('playerRoot', scene);
   playerRoot.position = initialPosition.clone();
+  playerRoot.scaling = new BABYLON.Vector3(0.5, 0.5, 0.5); // קטן פי 2 למובייל
 
   // גוף מעוצב
   const playerBody = BABYLON.MeshBuilder.CreateCylinder(

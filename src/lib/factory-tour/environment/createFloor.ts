@@ -4,9 +4,10 @@ import * as BABYLON from '@babylonjs/core';
  * יוצר רצפת מפעל משופרת
  */
 export function createFloor(scene: BABYLON.Scene): void {
+  const SCALE = 0.4; // קנה מידה למובייל
   const ground = BABYLON.MeshBuilder.CreateGround(
     'ground',
-    { width: 150, height: 150 },
+    { width: 150 * SCALE, height: 150 * SCALE },
     scene
   );
 
@@ -32,10 +33,10 @@ export function createFloor(scene: BABYLON.Scene): void {
     if (i !== 0) {
       const line = BABYLON.MeshBuilder.CreateBox(
         `floorLine${i}`,
-        { width: 80, height: 0.05, depth: 0.3 },
+        { width: 80 * SCALE, height: 0.05, depth: 0.3 * SCALE },
         scene
       );
-      line.position = new BABYLON.Vector3(i * 10, 0.03, 0);
+      line.position = new BABYLON.Vector3(i * 10 * SCALE, 0.03, 0);
 
       const lineMat = new BABYLON.StandardMaterial(`lineMat${i}`, scene);
       lineMat.diffuseColor = new BABYLON.Color3(0.9, 0.75, 0.1);

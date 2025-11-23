@@ -115,19 +115,19 @@ export default function FactoryTourPage() {
 
       {/* מסך התחלה */}
       {showStartScreen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-gradient-to-br from-[#667eea] to-[#764ba2] transition-opacity duration-600">
-          <div className="text-center p-16 bg-white/98 rounded-3xl shadow-2xl backdrop-blur">
-            <h1 className="text-5xl font-semibold text-gray-800 mb-5 tracking-tight">
-              🏭 סיור במפעל תעשייתי
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-gradient-to-br from-[#667eea] to-[#764ba2] px-4">
+          <div className="text-center p-6 sm:p-10 bg-white/98 rounded-3xl shadow-2xl backdrop-blur max-w-md w-full">
+            <h1 className="text-2xl sm:text-3xl font-semibold text-gray-800 mb-3 tracking-tight">
+              🏭 סיור במפעל
             </h1>
-            <div className="text-xl text-gray-600 mb-12 font-light leading-relaxed">
-              התנסות וירטואלית במפעל ייצור מתקדם
+            <div className="text-sm sm:text-base text-gray-600 mb-6 font-light leading-relaxed">
+              התנסות וירטואלית במפעל ייצור
               <br />
-              עצור בכל תחנה ולחץ על הכפתור להמשיך
+              לחץ על הכפתור בכל תחנה להמשיך
             </div>
             <button
               onClick={handleStartClick}
-              className="px-16 py-5 text-2xl font-medium bg-gradient-to-r from-[#667eea] to-[#764ba2] text-white border-none rounded-full cursor-pointer shadow-xl hover:translate-y-[-4px] hover:shadow-2xl transition-all duration-300"
+              className="px-8 py-3 text-base font-medium bg-gradient-to-r from-[#667eea] to-[#764ba2] text-white border-none rounded-full cursor-pointer shadow-xl hover:scale-105 transition-all duration-300"
             >
               התחל סיור
             </button>
@@ -137,11 +137,11 @@ export default function FactoryTourPage() {
 
       {/* מידע על תחנה */}
       {currentStation && (
-        <div className="fixed top-8 left-1/2 -translate-x-1/2 z-40 bg-white/95 px-10 py-5 rounded-2xl shadow-xl backdrop-blur text-center animate-slideDown">
-          <div className="text-3xl font-semibold mb-2 text-[#667eea]">
+        <div className="fixed top-4 left-1/2 -translate-x-1/2 z-40 bg-white/95 px-4 sm:px-6 py-3 rounded-2xl shadow-xl backdrop-blur text-center animate-slideDown max-w-sm mx-4">
+          <div className="text-lg sm:text-xl font-semibold mb-1 text-[#667eea]">
             {currentStation.name}
           </div>
-          <div className="text-base font-normal text-gray-600">
+          <div className="text-xs sm:text-sm font-normal text-gray-600">
             {currentStation.description}
           </div>
         </div>
@@ -151,9 +151,9 @@ export default function FactoryTourPage() {
       {showInstructions && !currentStation && (
         <button
           onClick={handleNextStation}
-          className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 px-8 py-4 bg-gradient-to-r from-[#667eea] to-[#764ba2] text-white rounded-full text-lg font-semibold shadow-2xl hover:scale-105 transition-all animate-bounce"
+          className="fixed bottom-4 left-1/2 -translate-x-1/2 z-50 px-6 py-3 bg-gradient-to-r from-[#667eea] to-[#764ba2] text-white rounded-full text-sm sm:text-base font-semibold shadow-2xl hover:scale-105 transition-all animate-bounce"
         >
-          ▶️ המשך לתחנה הבאה
+          ▶️ המשך
         </button>
       )}
 
@@ -161,9 +161,9 @@ export default function FactoryTourPage() {
       {showInstructions && currentStation && (
         <button
           onClick={handleNextStation}
-          className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 px-8 py-4 bg-gradient-to-r from-emerald-500 to-teal-500 text-white rounded-full text-lg font-semibold shadow-2xl hover:scale-105 transition-all"
+          className="fixed bottom-4 left-1/2 -translate-x-1/2 z-50 px-6 py-3 bg-gradient-to-r from-emerald-500 to-teal-500 text-white rounded-full text-sm sm:text-base font-semibold shadow-2xl hover:scale-105 transition-all"
         >
-          ✓ הבנתי - הבא
+          ✓ הבא
         </button>
       )}
 

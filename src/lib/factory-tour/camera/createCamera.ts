@@ -14,13 +14,13 @@ export function createFollowCamera(
     scene
   );
 
-  // מותאם למובייל - קרוב יותר ונמוך יותר
-  followCamera.radius = 18;
-  followCamera.heightOffset = 10;
+  // מאוד קרוב למובייל - כמו מצלמה מעל הכתף
+  followCamera.radius = 8;
+  followCamera.heightOffset = 5;
   followCamera.rotationOffset = 180;
-  followCamera.cameraAcceleration = 0.08;
-  followCamera.maxCameraSpeed = 12;
-  followCamera.lockedTarget = player.body; // שימוש ב-mesh במקום transform node
+  followCamera.cameraAcceleration = 0.1;
+  followCamera.maxCameraSpeed = 15;
+  followCamera.lockedTarget = player.body;
 
   scene.activeCamera = followCamera;
 
